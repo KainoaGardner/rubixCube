@@ -1,5 +1,6 @@
 from settings import *
 import random
+import time
 class RubixCube():
     def __init__(self):
         self.colorDict = {0:"#2ecc71",1:"#f1c40f",2:"#e67e22",3:"#c0392b",4:"#ecf0f1",5:"#3498db"}
@@ -14,6 +15,7 @@ class RubixCube():
         self.clickStart = ()
 
         self.timer = 0
+        self.startTime = time.time()
         self.win = False
 
         self.shuffleCount = 0
@@ -99,7 +101,32 @@ class RubixCube():
                 self.shuffling = True
 
     def solve(self):
-        pass
+        self.getWhiteCross()
+
+    def getWhiteCross(self):
+        whitePieceLocation = []
+        for face in [(self.front,"f"),(self.back,"b"),(self.left,"l"),(self.right,"r"),(self.top,"u")]:
+            for pos in [(0,1),(1,0),(1,2),(2,1)]:
+                if face[0][pos[0]][pos[1]] == 4:
+                    whitePieceLocation.append((face[1],pos))
+
+        print(whitePieceLocation)
+        # if self.bot[0][1] != 4:
+        #     if self.left[1][2] == 4:
+        #        self.frTurn()
+        #     elif self.right[1][0] == 4:
+        #        self.fTurn()
+        #     elif self.bot[2][1] == 4:
+        #         self.fTurn()
+        #         self.fTurn()
+
+            # elif self.left[1][2] == 1:
+            #     self.fTurn()
+            # elif self.right[1][0] == 1:
+            #     self.frTurn()
+
+
+
 
     def spinFace(self,face):
         face = [[face[2][0],face[1][0],face[0][0]],
@@ -339,21 +366,31 @@ class RubixCube():
                     self.dTurn()
 
             self.history.pop(-1)
+            self.win = False
 
     def getTime(self):
-        if len(self.history) > 0 and self.win == False:
-            pass
+        if len(self.history) == 0 and self.win == False:
+            self.timer = 00
+        elif self.win == False:
+            self.timer += 1
+
     def displayTime(self):
-        pass
+        text = fontBig.render(f"{self.timer//60}:{self.timer//6%10}", True, WHITE)
+        textRect = text.get_rect(midleft=(MARGINSIZE + TILESIZE * 7, MARGINSIZE + TILESIZE + TILESIZE // 2))
+        screen.blit(text,textRect)
 
     def getWin(self):
-        pass
+        if self.win == False:
+            if self.front == [[0, 0, 0], [0, 0, 0], [0, 0, 0]] and self.bot == [[1, 1, 1], [1, 1, 1],[1, 1, 1]] and self.left == [[2, 2, 2],[2, 2, 2],[2, 2, 2]] \
+                    and self.right == [[3, 3, 3], [3, 3, 3], [3, 3, 3]] and self.top == [[4, 4, 4], [4, 4, 4],[4, 4, 4]] and self.back == [[5, 5, 5], [5, 5, 5], [5, 5, 5]]:
+                self.win = True
 
     def display(self):
         self.drawCube()
         self.drawLine()
         self.shuffleClicked()
         self.displayTime()
+        self.getTime()
         # self.displayLines()
 
 cube = RubixCube()
