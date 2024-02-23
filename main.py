@@ -10,78 +10,105 @@ def main():
                 run = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
-                    if FButton.checkClicked(mos):
-                        cube.fTurn()
-                    elif FRButton.checkClicked(mos):
-                        cube.frTurn()
+                    if cube.shuffling == False:
+                        if FButton.checkClicked(mos):
+                            cube.fTurn()
+                            cube.history.append("F")
+                        elif FRButton.checkClicked(mos):
+                            cube.frTurn()
+                            cube.history.append("FR")
 
-                    elif BButton.checkClicked(mos):
-                        cube.bTurn()
-                    elif BRButton.checkClicked(mos):
-                        cube.brTurn()
+                        elif BButton.checkClicked(mos):
+                            cube.bTurn()
+                            cube.history.append("B")
+                        elif BRButton.checkClicked(mos):
+                            cube.brTurn()
+                            cube.history.append("BR")
 
-                    elif LButton.checkClicked(mos):
-                        cube.lTurn()
-                    elif LRButton.checkClicked(mos):
-                        cube.lrTurn()
+                        elif LButton.checkClicked(mos):
+                            cube.lTurn()
+                            cube.history.append("L")
+                        elif LRButton.checkClicked(mos):
+                            cube.lrTurn()
+                            cube.history.append("LR")
 
-                    elif RButton.checkClicked(mos):
-                        cube.rTurn()
-                    elif RRButton.checkClicked(mos):
-                        cube.rrTurn()
+                        elif RButton.checkClicked(mos):
+                            cube.rTurn()
+                            cube.history.append("R")
+                        elif RRButton.checkClicked(mos):
+                            cube.rrTurn()
+                            cube.history.append("RR")
 
-                    elif UButton.checkClicked(mos):
-                        cube.uTurn()
-                    elif URButton.checkClicked(mos):
-                        cube.urTurn()
+                        elif UButton.checkClicked(mos):
+                            cube.uTurn()
+                            cube.history.append("U")
+                        elif URButton.checkClicked(mos):
+                            cube.urTurn()
+                            cube.history.append("UR")
 
-                    elif DButton.checkClicked(mos):
-                        cube.dTurn()
-                    elif DRButton.checkClicked(mos):
-                        cube.drTurn()
+                        elif DButton.checkClicked(mos):
+                            cube.dTurn()
+                            cube.history.append("D")
+                        elif DRButton.checkClicked(mos):
+                            cube.drTurn()
+                            cube.history.append("DR")
 
-                    elif resetButton.checkClicked(mos):
-                        cube.reset()
-                    elif mixButton.checkClicked(mos):
-                        cube.shuffle()
-                    elif solveButton.checkClicked(mos):
-                        cube.solve()
+                        elif undoButton.checkClicked(mos):
+                            cube.undo()
+                        elif resetButton.checkClicked(mos):
+                            cube.reset()
+                        elif mixButton.checkClicked(mos):
+                            cube.shuffling = True
+                        elif solveButton.checkClicked(mos):
+                            cube.solve()
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_r:
                     cube.undo()
 
         display()
+        if cube.shuffling == False:
+            if FButton.checkClicked(mos):
+                spinImageRect = spinImage.get_rect(center = (MARGINSIZE + TILESIZE * 3 + TILESIZE * 1.5,MARGINSIZE + TILESIZE * 3 + TILESIZE * 1.5))
+                screen.blit(spinImage,spinImageRect)
+            elif FRButton.checkClicked(mos):
+                spinImageRect = spinImage.get_rect(center=(MARGINSIZE + TILESIZE * 3 + TILESIZE * 1.5, MARGINSIZE + TILESIZE * 3 + TILESIZE * 1.5))
+                screen.blit(spinFlipImage,spinImageRect)
 
-        if FButton.checkClicked(mos):
-            screen.blit(spinImage,(MARGINSIZE + TILESIZE * 3,MARGINSIZE + TILESIZE * 3))
-        elif FRButton.checkClicked(mos):
-            screen.blit(spinFlipImage,(MARGINSIZE + TILESIZE * 3,MARGINSIZE + TILESIZE * 3))
+            elif BButton.checkClicked(mos):
+                spinImageRect = spinImage.get_rect(center=(MARGINSIZE + TILESIZE * 9 + TILESIZE * 1.5, MARGINSIZE + TILESIZE * 3 + TILESIZE * 1.5))
+                screen.blit(spinImage,spinImageRect)
+            elif BRButton.checkClicked(mos):
+                spinImageRect = spinImage.get_rect(center=(MARGINSIZE + TILESIZE * 9 + TILESIZE * 1.5, MARGINSIZE + TILESIZE * 3 + TILESIZE * 1.5))
+                screen.blit(spinFlipImage,spinImageRect)
 
-        elif BButton.checkClicked(mos):
-            screen.blit(spinImage,(MARGINSIZE + TILESIZE * 9,MARGINSIZE + TILESIZE * 3))
-        elif BRButton.checkClicked(mos):
-            screen.blit(spinFlipImage,(MARGINSIZE + TILESIZE * 9,MARGINSIZE + TILESIZE * 3))
+            elif LButton.checkClicked(mos):
+                spinImageRect = spinImage.get_rect(center=(MARGINSIZE + TILESIZE * 1.5, MARGINSIZE + TILESIZE * 3 + TILESIZE * 1.5))
+                screen.blit(spinImage,spinImageRect)
+            elif LRButton.checkClicked(mos):
+                spinImageRect = spinImage.get_rect(center=(MARGINSIZE + TILESIZE * 1.5, MARGINSIZE + TILESIZE * 3 + TILESIZE * 1.5))
+                screen.blit(spinFlipImage,spinImageRect)
 
-        elif LButton.checkClicked(mos):
-            screen.blit(spinImage,(MARGINSIZE,MARGINSIZE + TILESIZE * 3))
-        elif LRButton.checkClicked(mos):
-            screen.blit(spinFlipImage,(MARGINSIZE,MARGINSIZE + TILESIZE * 3))
+            elif RButton.checkClicked(mos):
+                spinImageRect = spinImage.get_rect(center=(MARGINSIZE + TILESIZE * 6 + TILESIZE * 1.5, MARGINSIZE + TILESIZE * 3 + TILESIZE * 1.5))
+                screen.blit(spinImage,spinImageRect)
+            elif RRButton.checkClicked(mos):
+                spinImageRect = spinImage.get_rect(center=(MARGINSIZE + TILESIZE * 6 + TILESIZE * 1.5, MARGINSIZE + TILESIZE * 3 + TILESIZE * 1.5))
+                screen.blit(spinFlipImage,spinImageRect)
 
-        elif RButton.checkClicked(mos):
-            screen.blit(spinImage,(MARGINSIZE + TILESIZE * 6,MARGINSIZE + TILESIZE * 3))
-        elif RRButton.checkClicked(mos):
-            screen.blit(spinFlipImage,(MARGINSIZE + TILESIZE * 6,MARGINSIZE + TILESIZE * 3))
+            elif UButton.checkClicked(mos):
+                spinImageRect = spinImage.get_rect(center=(MARGINSIZE + TILESIZE * 3 + TILESIZE * 1.5, MARGINSIZE + TILESIZE * 1.5))
+                screen.blit(spinImage,spinImageRect)
+            elif URButton.checkClicked(mos):
+                spinImageRect = spinImage.get_rect(center=(MARGINSIZE + TILESIZE * 3 + TILESIZE * 1.5, MARGINSIZE + TILESIZE * 1.5))
+                screen.blit(spinFlipImage,spinImageRect)
 
-        elif UButton.checkClicked(mos):
-            screen.blit(spinImage,(MARGINSIZE + TILESIZE * 3,MARGINSIZE))
-        elif URButton.checkClicked(mos):
-            screen.blit(spinFlipImage,(MARGINSIZE + TILESIZE * 3,MARGINSIZE))
-
-        elif DButton.checkClicked(mos):
-            screen.blit(spinImage,(MARGINSIZE + TILESIZE * 3,MARGINSIZE + TILESIZE * 6))
-        elif DRButton.checkClicked(mos):
-            screen.blit(spinFlipImage,(MARGINSIZE + TILESIZE * 3,MARGINSIZE + TILESIZE * 6))
+            elif DButton.checkClicked(mos):
+                spinImageRect = spinImage.get_rect(center=(MARGINSIZE + TILESIZE * 3 + TILESIZE * 1.5, MARGINSIZE + TILESIZE * 6 + TILESIZE * 1.5))
+                screen.blit(spinImage,spinImageRect)
+            elif DRButton.checkClicked(mos):
+                spinImageRect = spinImage.get_rect(center=(MARGINSIZE + TILESIZE * 3 + TILESIZE * 1.5, MARGINSIZE + TILESIZE * 6 + TILESIZE * 1.5))
+                screen.blit(spinFlipImage,spinImageRect)
 
 
         pygame.display.update()

@@ -13,10 +13,12 @@ pygame.display.set_caption("RubixCube")
 clock = pygame.time.Clock()
 
 font = pygame.font.Font("font/LEMONMILK-Regular.otf",TILESIZE // 2)
+fontSmall = pygame.font.Font("font/LEMONMILK-Regular.otf",TILESIZE // 4)
+fontBig = pygame.font.Font("font/LEMONMILK-Regular.otf",TILESIZE)
 
 
 spinImage = pygame.image.load("graphics/arrows.png").convert_alpha()
-spinFlipImage = pygame.transform.scale(spinImage, (TILESIZE * 3, TILESIZE * 3))
+spinFlipImage = pygame.transform.scale(spinImage, (TILESIZE * 2, TILESIZE * 2))
 spinImage = pygame.transform.flip(spinFlipImage, True, False)
 
 BLACK = "#2d3436"
